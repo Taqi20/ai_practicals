@@ -1,0 +1,198 @@
+Exp1 
+
+PEAS Descriptor for The Role Of Artificial Intelligence In Automobile
+1. Performance Measure:
+• Safety: The primary concern is the safety of passengers, pedestrians, and other vehicles on
+the road.
+• Efficiency: AI should optimize fuel consumption and energy usage to make vehicles more
+eco-friendly and cost-effective.
+• Comfort: Enhancing the comfort of passengers through intelligent features like adaptive
+cruise control, autonomous driving, and personalized infotainment systems.
+• Reliability: AI systems should operate reliably under various conditions, including adverse
+weather and road conditions.
+2. Environment:
+• Roads: AI operates within the dynamic and unpredictable environment of roads,
+including highways, urban streets, and rural areas.
+• Traffic: Dealing with varying traffic densities, congestion, and different driving
+behaviors of other vehicles.
+• Weather: Adapting to different weather conditions such as rain, snow, fog, and intense
+sunlight.
+• Regulatory: Adhering to traffic laws, regulations, and standards set by governing bodies.
+3. Actuators:
+• Steering: Controlling the direction of the vehicle autonomously or through assisted steering
+systems.
+• Acceleration/Braking: Managing the speed of the vehicle, including autonomous braking
+and adaptive cruise control.
+• Lights: Adjusting headlights for optimal visibility and signaling intentions to other
+vehicles.
+• Wipers: Activating windshield wipers based on weather conditions.
+4. Sensors:
+• Cameras: Capturing visual data to detect lanes, pedestrians, obstacles, and traffic signs.
+
+• LiDAR: Providing precise distance measurements to detect objects and map
+surroundings in 3D.
+• Radar: Detecting objects and vehicles around the car, especially in low visibility
+conditions.
+• Ultrasonic Sensors: Assessing proximity to objects, useful for parking assistance and
+collision avoidance.
+
+
+
+exp 2
+
+Algorithm: DFS
+Input:  start (initial node), goal (goal node)
+Output: List representing path from start to goal, or "No path found"
+
+1. INITIALIZE
+   1.1 stack ← [(start, [start])]
+   1.2 visited ← ∅
+
+2. WHILE stack ≠ ∅ DO
+   a. (current, path) ← POP(stack)
+   b. IF current ∈ visited THEN
+         CONTINUE
+   c. visited ← visited ∪ {current}
+   d. IF current = goal THEN
+         RETURN path
+   e. FOR EACH neighbor ∈ neighbors(current) DO
+         i. IF neighbor ∉ visited THEN
+              PUSH(stack, (neighbor, path ⧺ [neighbor]))
+
+3. RETURN "No path found"
+
+DFS(start, goal):
+    stack ← [(start, [start])]
+    visited ← set()
+
+    while stack is not empty:
+        (current, path) ← stack.pop()
+        if current in visited:
+            continue
+        visited.add(current)
+
+        if current == goal:
+            return path
+
+        for neighbor in neighbors(current):
+            if neighbor not in visited:
+                stack.push((neighbor, path + [neighbor]))
+
+    return "No path found"
+
+
+
+
+Algorithm: BFS
+Input:  start (initial node), goal (goal node)
+Output: List representing path from start to goal, or "No path found"
+
+1. INITIALIZE
+   1.1 queue ← [(start, [start])]
+   1.2 visited ← ∅
+
+2. WHILE queue ≠ ∅ DO
+   a. (current, path) ← DEQUEUE(queue)
+   b. IF current ∈ visited THEN
+         CONTINUE
+   c. visited ← visited ∪ {current}
+   d. IF current = goal THEN
+         RETURN path
+   e. FOR EACH neighbor ∈ neighbors(current) DO
+         i. IF neighbor ∉ visited THEN
+              ENQUEUE(queue, (neighbor, path ⧺ [neighbor]))
+
+3. RETURN "No path found"
+
+BFS(start, goal):
+    queue ← [(start, [start])]
+    visited ← set()
+
+    while queue is not empty:
+        (current, path) ← queue.pop(0)
+        if current in visited:
+            continue
+        visited.add(current)
+
+        if current == goal:
+            return path
+
+        for neighbor in neighbors(current):
+            if neighbor not in visited:
+                queue.append((neighbor, path + [neighbor]))
+
+    return "No path found"
+
+
+exp 3
+
+1. Initialize the open list with the start node.
+2. Initialize the closed list as empty.
+3. While the open list is not empty:
+   a. Pick the node with the lowest f(n) = g(n) + h(n) from the open list.
+   b. If the node is the goal node, return success and build the path.
+   c. Else:
+      i. Remove it from open list and add to closed list.
+      ii. Expand the node (check its neighbors).
+      iii. For each neighbor:
+          - If it's not in open or closed list, add it to open.
+          - If it's already there with a higher cost, update its cost and parent.
+4. If open list is empty and goal not found, return failure.
+
+
+exp 6
+🔁 Steps:
+Start from the first row (row = 0).
+
+Try placing a queen in each column (from 0 to N-1) in the current row.
+
+For each position, check if it's safe:
+
+No queen in the same column above.
+
+No queen on the upper-left diagonal.
+
+No queen on the upper-right diagonal.
+
+If safe:
+
+Place the queen.
+
+Recur to place the next queen in the next row.
+
+If all queens are placed (row == N), you've found a solution — print or store it.
+
+Backtrack: Remove the queen and try the next column.
+
+🔁 Pseudocode:
+python
+Copy code
+def solve_n_queens(board, row, solutions):
+    if row == N:
+        solutions.append(print_board(board))
+        return
+
+    for col in range(N):
+        if is_safe(board, row, col):
+            board[row][col] = 'Q'
+            solve_n_queens(board, row + 1, solutions)
+            board[row][col] = '.'  # backtrack
+
+def is_safe(board, row, col):
+    # Check column
+    for i in range(row):
+        if board[i][col] == 'Q':
+            return False
+    # Check upper-left diagonal
+    for i, j in zip(range(row - 1, -1, -1), range(col - 1, -1, -1)):
+        if board[i][j] == 'Q':
+            return False
+    # Check upper-right diagonal
+    for i, j in zip(range(row - 1, -1, -1), range(col + 1, N)):
+        if board[i][j] == 'Q':
+            return False
+    return True
+
+
+
+
